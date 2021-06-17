@@ -60,7 +60,7 @@ export default function MyForm() {
           type="text"
           name="name"
           value={name}
-          placeholder="Elon Mask"
+          placeholder="Enter your name"
           onChange={e => setName(e.currentTarget.value)}
           className={s.input}
         />
