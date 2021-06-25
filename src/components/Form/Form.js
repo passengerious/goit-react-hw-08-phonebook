@@ -1,3 +1,4 @@
+import React from 'react';
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import PhoneInput from 'react-phone-input-2';
@@ -38,6 +39,22 @@ export default function MyForm() {
       alert('Please enter all data');
       return true;
     }
+  };     
+
+  const isName = name => {
+    const check = /^[A-Za-z]+$/;
+    if(name.search(check)) {
+    return true;
+    };
+  };
+
+  const onKeyLetter = e => {
+    e = (e) ? e : window.event;
+    const charCode  = (e.which) ? e.which : e.keyCode;
+    if ((charCode < 65 || charCode > 90) && (charCode < 97 || charCode > 123) && (charCode !== 32)) {
+      return alert('Please input alphabet characters only');
+    }
+    return true;
   };
 
   const handleSubmit = e => {
@@ -47,6 +64,10 @@ export default function MyForm() {
 
     if (contactMatching()) {
       return;
+    }
+
+    if (isName(name) === true) {
+      return alert('Only alphabet characters allowed in NameForm');;
     }
 
     onSubmit(name, number);
@@ -62,6 +83,7 @@ export default function MyForm() {
           value={name}
           placeholder="Enter your name"
           onChange={e => setName(e.currentTarget.value)}
+          onKeyPress={onKeyLetter} 
           className={s.input}
         />
       </label>
